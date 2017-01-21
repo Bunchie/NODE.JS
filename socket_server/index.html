@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="/socket.io/socket.io.js"> // Магическая строка
+</script>
+<script>
+
+    var socket = io.connect('http://localhost:8081');
+
+    window.onunload = function(){
+        socket.disconnect();
+    };
+
+    // socket.emit('message', 'John');
+
+    socket.on('hello',function(data){
+
+        alert(data.hello);
+
+    });
+
+    function getName(first) {
+
+        var name = prompt("Input you name","");
+
+        if(name !==""){
+
+            if(first)
+                socket.emit('message', name);
+            else
+                socket.emit('new_message', name);
+        }
+
+
+    }
+
+</script>
+
+<button onclick="getName(0)">Name</button>
+
+<button onclick ="getName(1)">Change Name</button>
+
+</body>
+</html>
