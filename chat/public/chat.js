@@ -2,6 +2,14 @@
  * Created by ziberman on 1/21/17.
  */
 
+var socket;
+
+window.onunload = function(){
+
+    socket.disconnect();
+
+}
+
 window.onload = function () {
 
     var socket = io.connect('http://localhost:8080');
@@ -11,6 +19,11 @@ window.onload = function () {
     var form = document.getElementById('form');
 
     var content = document.getElementById('content');
+
+    var name = prompt('Input Name','');
+
+    if(name)
+        socket.emit('hello',{name:name})
 
     form.onsubmit = function () {
 
